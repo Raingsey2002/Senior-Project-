@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.38.1/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.js"></script>
+</head>
+<body>
+<header class=" w-full bg-gray-800">
+      <nav>
+        <div class="flex justify-between h-16 px-10 shadow items-center">
+        <div class="flex items-center space-x-8">
+          <a href="/"><h1 class="bg-gray-900 text-white px-3 py-2 rounded-md text-xl font-medium ">WPC</h1></a>
+            <div class="hidden md:flex justify-around space-x-4">
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-gray-300 bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Website Categories <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+<!-- Dropdown menu -->
+<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+    <ul class="py-1 text-sm text-gray-300 dark:text-gray-200 bg-gray-800" aria-labelledby="dropdownDefaultButton">
+     {% for  category in categories %}
+        <li>
+        <a href="{% url 'webcla:webcategories' %}?category={{category.name}}" class="block px-4 py-2 hover:bg-gray-700 dark:hover:bg-gray-600 dark:hover:text-white">{{category.name}} </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+          </div>
+        </div>
+
+
+      <div class="w-1/8 flex items-end">
+
+         <div class="flex space-x-4 items-center">
+
+          <a href="/profile" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Profile</a>
+          <a href="/logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Log Out</a>
+    </div>
+
+
+      </div>
+            </nav>
+    </header>
+    <div class="  text-center py-10 "><h1 class=" text-xl lg:text-4xl text-gray-800 font-medium ">Rate </h1></div>
+       <div class=" font-bold font-medium flex justify-center mt-10 p-6 text-xl  "><h1>How would you rate our website?</h1> </div>
+
+
+<form action="/CommentAndRating/ " method="post" >
+
+    {% csrf_token %}
+<div class="  w-full h-auto max-w-lg mx-auto flex justify-center rounded  flex items-center mt-5 p-5 bg-gray-100  ">
+         <div class=" p-6 space-y-6 " >
+        <p class=" text-base leading-relaxed text-gray-500 dark:text-gray-400">
+
+
+                        <label class="font-medium  text-xl text-gray-800">Stars:
+                            <select name="rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </label>
+ <p><label for="comment" class="text-xl text-gray-800">Comment:</label></p>
+  <textarea class="w-full h-20 p-2 border rounded focus:outline-none focus:ring-gray-300 focus:ring-1" id="comment" name="comment" rows="4" cols="50" placeholder="Write a comment..."></textarea>
+  <br>
+
+
+                </p>
+         </div>
+            </div>
+
+
+
+            </div>
+
+ <div class=" flex justify-center  "> <button  class=" mt-4 bg-gray-800 text-sm font-medium text-white rounded px-9 py-3 block shadow-xl hover:text-white hover:bg-black " type="submit">Rate</button> </div>
+    {% for message in messages %}
+     <div class="flex items-center justify-center">
+    <p class="flex items-center justify-center box-border px-4 py-3 text-xl text-gray-800 m-6 bg-yellow-100 text-black border-solid flex flex-col items-center p-10 my-5 text-center  rounded   bg-yellow-100"> {{message}}</p>
+        {% endfor %}
+    </div>
+
+</form>
+
+
+</body>
+
+
+</html>

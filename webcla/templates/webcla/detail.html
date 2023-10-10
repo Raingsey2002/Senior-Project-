@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Categories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.38.1/dist/full.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.css" />
+    <script src="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.js"></script>
+
+</head>
+<body>
+<header class=" w-full bg-gray-800">
+      <nav>
+        <div class="flex justify-between h-16 px-10 shadow items-center">
+        <div class="flex items-center space-x-8">
+          <a href="/"><h1 class="bg-gray-900 text-white px-3 py-2 rounded-md text-xl font-medium ">WPC</h1></a>
+           {% if user.is_authenticated %}
+          <div class="hidden md:flex justify-around space-x-4">
+
+<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-gray-300 bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Website Categories <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+<!-- Dropdown menu -->
+<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+    <ul class="py-1 text-sm text-gray-300 dark:text-gray-200 bg-gray-800" aria-labelledby="dropdownDefaultButton">
+      {% for  category in categories %}
+        <li>
+        <a href="{% url 'webcla:webcategories' %}?category={{category.name}}" class="block px-4 py-2 hover:bg-gray-700 dark:hover:bg-gray-600 dark:hover:text-white">{{category.name}} </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+          </div>
+        </div>
+            {% else %}
+<div>
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-gray-300 bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Website Categories <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+<!-- Dropdown menu -->
+<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+    <ul class="py-1 text-sm text-gray-300 dark:text-gray-200 bg-gray-800" aria-labelledby="dropdownDefaultButton">
+      {% for  category in categories %}
+        <li>
+        <a href="{% url 'webcla:webcategories' %}?category={{category.name}}" class="block px-4 py-2 hover:bg-gray-700 dark:hover:bg-gray-600 dark:hover:text-white">{{category.name}} </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+          </div>
+
+        </div>
+
+         {% endif %}
+
+
+
+      <div class="w-1/8 flex items-end">
+        {% if user.is_authenticated %}
+         <div class="flex space-x-4 items-center">
+
+          <a href="/profile" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Profile</a>
+          <a href="/logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Log Out</a>
+    </div>
+          {% else %}
+            <div class="w-1/8 flex items-end">
+          <div class="flex space-x-4 items-center">
+          <a href="/Login" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Log In</a>
+          <a href="/Signup" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign Up</a>
+        </div>
+                </div>
+      {% endif %}
+
+
+      </div>
+            </nav>
+    </header>
+
+    <div class=" text-center py-7 "><h1 class=" text-xl lg:text-3xl text-gray-800 font-medium ">Detail</h1></div>
+
+<div class=" m-5 grid grid-cols-1">
+
+
+        <div class="flex flex-col drop-shadow bg-gray-800  text-blue-200 m-3  rounded">
+
+
+
+            <div class="m-4"><h1 class="text-xl text-bold  underline "> <a href=" {{website.url }}"> {{website.url }}</a></h1>
+            <h1 class="text-md"> Category: {{ website.category }}</h1>
+            <div class=" text-medium mb-2 text-gray-800 font-bold my-4 font-sans">
+
+		</div>
+            <h1 class="text-md"> Extracted text: {{ website.extracted_text }} </h1>
+            </div>
+
+        </div>
+
+{% if user.is_authenticated %}
+<div class="  text-center py-2 "><h1 class=" text-xl lg:text-3xl text-gray-800 font-medium ">Rate </h1></div>
+       <div class=" font-bold font-medium flex justify-center mt-5 "><h1>How would you rate this website?</h1> </div>
+<form action="." method="post" >
+
+    {% csrf_token %}
+<div class="  w-full h-auto max-w-lg mx-auto flex justify-center rounded  flex items-center mt-3 p-3 bg-gray-100">
+         <div class="p-6 space-y-6" >
+        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                <h2>Rate website: {{ website.url }}  </h2>
+
+                        <label>Score:
+                            <select name="rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </label>
+
+                        <input type="submit" value="Rate">
+
+                </p>
+         </div>
+            </div>
+
+
+
+            </div>
+
+ <div class=" flex justify-center mb-5 py-3 "> <button  class="bg-gray-800 text-sm font-medium text-white rounded px-9 py-3 block shadow-xl hover:text-white hover:bg-black " type="submit">Rate this website</button> </div>
+{% for message in messages %}
+     <div class="flex items-center justify-center">
+    <p class="flex items-center justify-center box-border px-4 py-3 text-xl text-gray-800  bg-yellow-100 text-black border-solid flex flex-col items-center  text-center  rounded   bg-yellow-100"> {{message}}</p>
+        {% endfor %}
+    </div>
+{% if website.get_rating > 0 %}
+<div class="flex items-center flex justify-center items-center">
+ <p class=" text-md font-bold dark:text-white ">Average Rating: <span class="text-xl">{{website.get_rating}}</span>/5</p>
+    <svg aria-hidden="true" class=" m-2 w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Rating star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+{% endif %}
+
+</div>
+
+
+{% for ratingg in website.Ratings.all %}
+    <div class=" w-full h-auto max-w-lg mx-auto rounded  mt-3 bg-gray-100">
+        <div class="p-6 " >
+            <h2 class=" font-light text-gray-400">Date: {{ratingg.created }}</h2>
+        <h1> Rating: <span class="text-xl"> {{ratingg.rating}}</span>/5 </h1>
+
+        <h1> User: {{ratingg.created_by}}</h1>
+        </div>
+    </div>
+    {% endfor %}
+
+</form>
+
+{% endif %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+</html>

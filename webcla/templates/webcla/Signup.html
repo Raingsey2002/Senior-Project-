@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<div class=" bg-gray-800 flex justify-center items-center">
+
+	<div class="lg:w-2/5 md:w-1/2 w-2/3">
+
+		<form  action="/Signup/" class="bg-white p-10 rounded shadow-lg min-w-full" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+		<div class="text-end text-medium mb-2 text-gray-800 font-bold font-sans">
+			<a  class="  bg-green-600 text-sm font-medium text-white rounded px-4 py-2 m-2 p-10 space-x-8 shadow-xl hover:text-white hover:bg-gray-500 " href="/Login/">Log In</a>
+			<a  class="  bg-gray-800 text-sm font-medium text-white rounded px-4 py-2  shadow-xl hover:text-white hover:bg-black " href="/">Back</a>
+		</div>
+			{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class=" bg-red-100 rounded py-5 px-6 mb-4 text-base text-red-700 mb-3 my-5 {{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+			<h1 class="text-center text-3xl mb-6 text-gray-800 font-bold font-sans">Sign up</h1>
+
+			<div>
+				<label class="text-gray-800 font-semibold block my-3 text-md" for="first_name">First Name</label>
+				<input class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" type="text" name="first_name" id="first_name" placeholder="first_name" />
+      </div>
+            <div>
+				<label class="text-gray-800 font-semibold block my-3 text-md" for="last_name">Last Name</label>
+				<input class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" type="text" name="last_name" id="last_name" placeholder="last_name" />
+      </div>
+            <div>
+				<label class="text-gray-800 font-semibold block my-3 text-md" for="username">Username</label>
+				<input class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" type="text" name="username" id="username" placeholder="username" />
+      </div>
+				<div>
+					<label class="text-gray-800 font-semibold block my-3 text-md" for="email">Email</label>
+					<input class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" type="text" name="email" id="email" placeholder="email" />
+      </div>
+            <label  class="text-gray-800 font-semibold block my-3 text-md"  for="gender">Gender</label>
+
+            <div><select name ='gender' class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" id="gender">
+              <option value="">--select--</option>
+				<option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other" >Other</option>
+
+            </select>
+                </div>
+			<div>
+				  <label class="text-gray-800 font-semibold block my-3 text-md" for="Dateofbirth">Date of birth</label>
+				  <input class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" type="date" id="dateofbirth" name="dateofbirth">
+			</div>
+			<div>
+				<label class="text-gray-800 font-semibold block my-3 text-md" for="image">Select image</label>
+  				<input class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" type="file" id="image" name="image" accept="image/*">
+			</div>
+					<div>
+						<label class="text-gray-800 font-semibold block my-3 text-md" for="password">Password</label>
+						<input class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" type="password" name="password" id="password" placeholder="password" />
+      </div>
+						<div>
+							<label class="text-gray-800 font-semibold block my-3 text-md" for="confirm">Confirm password</label>
+							<input class="w-full bg-gray-100 px-4 py-2 rounded focus:outline-none" type="password" name="confirm_password" id="confirm_password" placeholder="confirm password" />
+      </div>
+							<div><button type="submit" class="w-full  mt-6 mb-3 bg-gray-800 hover:bg-black rounded px-4 py-2 text-lg text-white tracking-wide font-medium ">Register</button></div>
+
+
+		</form>
+	</div>
+</div>
+</body>
+</html>

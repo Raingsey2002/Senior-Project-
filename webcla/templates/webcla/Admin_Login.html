@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-800 min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
+
+
+    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded shadow-2xl">
+<div class="text-end text-medium mb-2 text-gray-800 font-bold font-sans"><a  class="  bg-gray-800 text-sm font-medium text-white rounded px-4 py-2  shadow-xl hover:text-white hover:bg-black " href="/">Back</a></div>
+            <h1 class="text-3xl  mb-6 text-gray-800 font-bold font-sans  text-center">Admin Login</h1>
+
+        <section>
+            <h3 class=" font-medium text-xl">Welcome to WPC</h3>
+            <p class="text-gray-600 pt-2">Log in to your account.</p>
+        </section>
+
+        <section class="mt-10">
+            <form class="flex flex-col"  action="/Admin_Login/" method="post">
+                {% csrf_token %}
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">Username</label>
+                    <input type="text" name="username" id="username" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-gray-800 transition duration-500 px-3 pb-3">
+                </div>
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">Password</label>
+                    <input type="password" name="password" id="password" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-gray-800 transition duration-500 px-3 pb-3">
+                </div>
+
+                <button class="bg-gray-800 hover:bg-black text-white font-medium py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Log In</button>
+                 <div>
+        {% for message in messages %}
+        <p class="text-red m-2 font-medium"> {{message}}</p>
+        {% endfor %}
+    </div>
+            </form>
+        </section>
+    </main>
+
+
+
+
+</body>
+</html>
