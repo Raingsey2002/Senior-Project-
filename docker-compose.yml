@@ -1,0 +1,27 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mariadb:10.8
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: 1234
+      MARIADB_USER: webpageclassificationDb
+      MARIADB_PASSWORD: passworddb
+      MARIADB_DATABASE: webpageclassificationDb
+    ports:
+      - "3306:3306"
+    volumes:
+        - "mariadb:/var/lib/mysql"
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+volumes:
+    mariadb:
